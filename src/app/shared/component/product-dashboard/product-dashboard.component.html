@@ -19,6 +19,7 @@
     <div class="col-12">
 
       <app-product-list
+      (emitremovepro)="getremovepro($event)"
         [productArr]="productArr">
       </app-product-list>
 

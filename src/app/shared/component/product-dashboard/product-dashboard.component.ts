@@ -215,7 +215,12 @@ ngOnInit(): void {
   // }
 
 }
+getremovepro(id:string){
+let getIndex= this.productArr.findIndex(t=>t.productId===id);
+console.log(getIndex);
+this.productArr.splice(getIndex,1);
 
+}
  
 
 }
