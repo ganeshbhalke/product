@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { IProduct } from '../../modules/product';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ProductServiceService } from '../../Services/product-service.service';
 
 @Component({
   selector: 'app-product-form',
@@ -13,10 +14,13 @@ export class ProductFormComponent implements OnInit {
   //  productForm !: FormGroup;
    isInEditMode : boolean = false;
 
+   editObjTopatch !:IProduct
+
 @Output() emitProduct:EventEmitter<IProduct>= new EventEmitter<IProduct>()
   productForm!: FormGroup;
   constructor(
-      private fb : FormBuilder
+      private fb : FormBuilder,
+      private _productService:ProductServiceService
 
   ) { 
         this.createProductForm()
@@ -63,6 +67,14 @@ export class ProductFormComponent implements OnInit {
 }
 
   ngOnInit(): void {
+
+    this._productService.emitEditObj$.subscribe({
+      next:data=> {
+        this.editObjTopatch=data;
+        this.productForm.patchValue(data)
+        this.isInEditMode=true
+      }
+    })
   }
 
 }
