@@ -12,69 +12,87 @@ export class ProductFormComponent implements OnInit {
 
 
   //  productForm !: FormGroup;
-   isInEditMode : boolean = false;
+  isInEditMode: boolean = false;
 
-   editObjTopatch !:IProduct
+  editObjTopatch !: IProduct
 
-@Output() emitProduct:EventEmitter<IProduct>= new EventEmitter<IProduct>()
+  @Output() emitProduct: EventEmitter<IProduct> = new EventEmitter<IProduct>()
   productForm!: FormGroup;
+
+
   constructor(
-      private fb : FormBuilder,
-      private _productService:ProductServiceService
+    private fb: FormBuilder,
+    private _productService: ProductServiceService
 
-  ) { 
-        this.createProductForm()
+  ) {
+    this.createProductForm()
 
   }
 
 
- createProductForm(){
+  createProductForm() {
 
-   this.productForm = this.fb.group({
+    this.productForm = this.fb.group({
 
-     pname : [''],
-     price : [''],
-     category : [''],
-     rating : [''],
-     imgUrl : [''],
-     offerPrice : [''],
-    discount : [''],
+      pname: [''],
+      price: [''],
+      category: [''],
+      rating: [''],
+      imgUrl: [''],
+      offerPrice: [''],
+      discount: [''],
 
-   })
+    })
 
- }
-
- onProductAdd(){
-
-
-  let productObj : IProduct = {
-    pname: this.productForm.value.pname,
-    price: (this.productForm.value.price),
-    category: this.productForm.value.category,
-    rating: (this.productForm.value.rating),
-    imgUrl: this.productForm.value.imgUrl,
-    productId: Date.now().toString(),
-    offerPrice: this.productForm.value.offerPrice,
-    discount : this.productForm.value.discount,
   }
 
-  console.log(productObj)
+  onProductAdd() {
 
-  this.emitProduct.emit(productObj)
 
-  this.productForm.reset()
+    let productObj: IProduct = {
+      pname: this.productForm.value.pname,
+      price: (this.productForm.value.price),
+      category: this.productForm.value.category,
+      rating: (this.productForm.value.rating),
+      imgUrl: this.productForm.value.imgUrl,
+      productId: Date.now().toString(),
+      offerPrice: this.productForm.value.offerPrice,
+      discount: this.productForm.value.discount,
+    }
 
-}
+    console.log(productObj)
+
+    this.emitProduct.emit(productObj)
+
+    this.productForm.reset()
+
+  }
 
   ngOnInit(): void {
 
     this._productService.emitEditObj$.subscribe({
-      next:data=> {
-        this.editObjTopatch=data;
+      next: data => {
+        this.editObjTopatch = data;
         this.productForm.patchValue(data)
-        this.isInEditMode=true
+        this.isInEditMode = true
       }
     })
   }
+
+  onUpdate(){
+
+  let updatedObj : IProduct = {
+    ...this.productForm.value,
+    productId : this.editObjTopatch.productId
+  }
+
+  this._productService.updateProduct(updatedObj)
+
+  this.isInEditMode = false;
+
+  this.productForm.reset();
+
+}
+
 
 }

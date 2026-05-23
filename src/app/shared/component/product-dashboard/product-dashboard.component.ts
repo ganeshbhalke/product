@@ -10,9 +10,11 @@ import { ProductServiceService } from '../../Services/product-service.service';
 export class ProductDashboardComponent implements OnInit {
 
   constructor(
-    private _snackBar:ProductServiceService
+    private _productService:ProductServiceService,
+    
   ) { }
 
+  
 
 //   productArr : Array<IProduct>=JSON.parse(
 //   localStorage.getItem('product') || '[]'
@@ -192,7 +194,7 @@ productArr : Array<IProduct>=[
 
     this.productArr.push(product)
     console.log(product);
-        this._snackBar.openSnackBar(`The product With id ${product} Added Successfully!!!`)
+        this._productService.openSnackBar(`The product With id ${product} Added Successfully!!!`)
 
 
 
@@ -205,6 +207,8 @@ productArr : Array<IProduct>=[
 
   }
 ngOnInit(): void {
+
+  this._productService.productArr = this.productArr
 
   // let data = localStorage.getItem('product');
 
