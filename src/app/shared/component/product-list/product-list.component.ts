@@ -13,17 +13,26 @@ export class ProductListComponent implements OnInit {
   @Output() emitremovepro: EventEmitter<string> = new EventEmitter<string>();
   @Input() productArr !: Array<IProduct>;
 
-  constructor( private _snackBar:ProductServiceService) { }
+  constructor(private _productService: ProductServiceService
+    
+  ) { }
 
   ngOnInit(): void {
   }
 
+
+
   onRemoveprod(id: string) {
     this.emitremovepro.emit(id);
-   this._snackBar.openSnackBar(
-  `Product is with id ${id} removed successfully!!!!!!!`,
-);
+    this._productService.openSnackBar(
+      `Product is with id ${id} removed successfully!!!!!!!`,
+    );
   }
+
+  onEdit(editObj:IProduct){
+    this._productService.emitEditObj$.next(editObj)
+  }
+
 
 
 
