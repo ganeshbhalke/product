@@ -8,6 +8,8 @@ import { Subject } from 'rxjs';
 })
 export class ProductServiceService {
 
+  productArr :IProduct[]=[]
+
   emitEditObj$ : Subject<IProduct> = new Subject<IProduct>()
 
   constructor(
@@ -26,7 +28,13 @@ export class ProductServiceService {
     )
   }
 
+updateProduct(updatedObj : IProduct){
 
+  let getIndex = this.productArr.findIndex(
+    prod => prod.productId === updatedObj.productId
+  )
 
+  this.productArr[getIndex] = updatedObj
 
+}
 }

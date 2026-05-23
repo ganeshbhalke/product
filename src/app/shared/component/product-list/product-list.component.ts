@@ -13,6 +13,8 @@ export class ProductListComponent implements OnInit {
   @Output() emitremovepro: EventEmitter<string> = new EventEmitter<string>();
   @Input() productArr !: Array<IProduct>;
 
+  producArr=this._productService.productArr
+
   constructor(private _productService: ProductServiceService
     
   ) { }

@@ -101,6 +101,7 @@
   </button>
 
   <button
+  (click)="onUpdate()"
   [disabled]="productForm.invalid"
     mat-raised-button color="warn" class="w-100"
     *ngIf="isInEditMode"
