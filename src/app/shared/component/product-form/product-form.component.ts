@@ -21,12 +21,8 @@ export class ProductFormComponent implements OnInit {
 
 
   constructor(
-<<<<<<< Updated upstream
     private fb: FormBuilder,
     private _productService: ProductServiceService
-=======
-      private fb : FormBuilder  
->>>>>>> Stashed changes
 
   ) {
     this.createProductForm()
